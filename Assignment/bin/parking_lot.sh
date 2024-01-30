@@ -1,13 +1,19 @@
 #!/bin/bash
 
-# This script runs the parking lot program itself.
-# It takes an input file as an argument and prints the output on STDOUT.
+# Navigate to the project root
+cd "$(dirname "$0")/.."
 
-# Check if the target directory exists
-if [ ! -d "target" ]; then
-    echo "Please run bin/setup first to build the project."
-    exit 1
+# Verify the presence of the compiled JAR file
+if [ ! -f "target/Assignment-1.0-SNAPSHOT.jar" ]; then
+  echo "Error: The compiled JAR file is not found. Run bin/setup.sh first."
+  exit 1
 fi
 
-# Assuming the compiled JAR file is in the target directory
-java -jar target/parking_lot.jar "$1"
+# Check if a filename is provided as an argument
+if [ "$#" -eq 1 ]; then
+  # Run the parking_lot program with the input file as an argument
+  java -jar target/Assignment-1.0-SNAPSHOT.jar "bin/parking_lot/$1"
+else
+  # Run the parking_lot program in interactive mode
+  java -jar target/Assignment-1.0-SNAPSHOT.jar
+fi

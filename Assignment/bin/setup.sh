@@ -1,10 +1,20 @@
 #!/bin/bash
 
-# This script is responsible for setting up the parking lot project.
-# It should install dependencies and/or compile the code and then run the unit test suite.
+# Navigate to the project root
+cd "$(dirname "$0")/.."
 
-# Assuming you have a build tool like Gradle
-gradle build
+# Verify the presence of the pom.xml file
+if [ ! -f "pom.xml" ]; then
+  echo "Error: The pom.xml file is not found in the project directory."
+  exit 1
+fi
 
-# Run the unit test suite
-gradle test
+# Run Maven commands to install dependencies and compile
+mvn clean install
+
+# Run unit tests
+mvn test
+
+echo "Setup complete"
+
+

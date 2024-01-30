@@ -51,7 +51,7 @@ public class ParkingLot {
     public void removeCar(int slotNumber) {
         for(Slot slot: slots){
             if(slot.getSlotNumber()==slotNumber){
-                System.out.println("Slot number "+slotNumber +" is free "+ slot.getParkedCar().getRegistrationNumber());
+                System.out.println("Slot number "+slotNumber +" is free");
                 slots.remove(slot);
                 this.setSlots(slots);
                 return;

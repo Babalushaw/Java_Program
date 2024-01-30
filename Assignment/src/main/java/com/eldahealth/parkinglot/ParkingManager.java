@@ -21,7 +21,7 @@ public class ParkingManager {
         }
     }
 
-    private void processCommand(String command) {
+    public void processCommand(String command) {
         String[] parts = command.trim().split("\\s+");
 
         switch (parts[0].toLowerCase()) {

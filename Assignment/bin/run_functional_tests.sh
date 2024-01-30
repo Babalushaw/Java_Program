@@ -1,6 +1,13 @@
 #!/bin/bash
 
-# This script runs the functional test suite for the parking lot program.
+# Navigate to the project root
+cd "$(dirname "$0")/.."
 
-# Assuming the compiled JAR file is in the target directory
-java -jar target/parking_lot.jar functional_spec/input.txt
+# Verify the presence of the compiled JAR file
+if [ ! -f "target/Assignment-1.0-SNAPSHOT.jar" ]; then
+  echo "Error: The compiled JAR file is not found. Run bin/setup.sh first."
+  exit 1
+fi
+
+# Run the parking_lot program with the input file as an argument
+java -jar target/Assignment-1.0-SNAPSHOT.jar "$1" bin/parking_lot input.txt
