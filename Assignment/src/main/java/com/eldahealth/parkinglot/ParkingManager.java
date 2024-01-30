@@ -6,9 +6,8 @@ import java.io.IOException;
 
 public class ParkingManager {
     private ParkingLot parkingLot;
-
-    public ParkingManager(int capacity) {
-        parkingLot = new ParkingLot(capacity);
+    public ParkingManager() {
+        parkingLot=new ParkingLot();
     }
 
     public void processInputFile(String filePath) {
@@ -23,9 +22,39 @@ public class ParkingManager {
     }
 
     private void processCommand(String command) {
-        // Parse and execute the command
-        // Example: "park KA-01-HH-1234 White"
-    }
+        String[] parts = command.trim().split("\\s+");
 
-    // Additional methods for other functionalities
+        switch (parts[0].toLowerCase()) {
+            case "create_parking_lot":
+                int capacity = Integer.parseInt(parts[1]);
+                this.parkingLot.setCapacity(capacity);
+                break;
+            case "park":
+                String registrationNumber = parts[1];
+                String color = parts[2];
+                this.parkingLot.parkCar(new Car(registrationNumber, color));
+                break;
+            case "leave":
+                int slotNumber = Integer.parseInt(parts[1]);
+                this.parkingLot.removeCar(slotNumber);
+                break;
+            case "status":
+                this.parkingLot.getStatus();
+                break;
+            case "registration_numbers_for_cars_with_colour":
+                String searchColor = parts[1];
+                this.parkingLot.findRegistrationByColourOfCar(searchColor);
+                break;
+            case "slot_numbers_for_cars_with_colour":
+                searchColor = parts[1];
+                this.parkingLot.findSlotByColourOfCar(searchColor);
+                break;
+            case "slot_number_for_registration_number":
+                String searchRegistrationNumber = parts[1];
+                this.parkingLot.findSlotByRegistrationNumberOfCar(searchRegistrationNumber);
+                break;
+            default:
+                this.parkingLot.InvalidMessage();
+        }
+    }
 }
